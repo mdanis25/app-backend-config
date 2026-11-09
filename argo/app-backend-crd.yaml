@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: app-backend
+  namespace: argocd
+
+spec:
+  project: app-project
+
+  source:
+    repoURL: https://github.com/mdanis25/app-backend-config.git
+    targetRevision: HEAD
+    path: backend-manifests
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: app-ns
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
